@@ -49,6 +49,11 @@ ionic serve
 Might need to execute *npm install* to install other packages.
 
 ### Some API credentials
+Rails Deployed App
+```
+https://mysterious-fjord-54773.herokuapp.com/
+```
+
 Google Maps API keys
 ```
 AIzaSyAnesP8EwTMBecjSmPBzeMp1hP3sG3IPgE
@@ -71,7 +76,7 @@ Send your current location as message content and send message to 29290469148
 You can try the following: 'Krus na Ligas', 'University of the Philippines Diliman Palma Hall'
 
 *Facebook Messenger Services* (via Facebook Messenger Bot x Your FB Messenger app) - Evacuation Recommender
-Message RefuGeo via Facebook (https://facebook.com/refugeo) with your current location. 
+Message RefuGeo via Facebook (https://facebook.com/refugeo) with your current location.
 You can try the following: 'Marikina City', 'Miriam College'
 
 *Development Status*: Currently, only evacuations near UP Diliman have been encoded.

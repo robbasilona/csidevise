@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
   root: string = 'http://localhost:3000';
-  prod: string = 'https://mysterious-fjord-54773.herokuapp.com/';
+  prod: string = 'https://mysterious-fjord-54773.herokuapp.com';
 
   constructor(public http: Http) {
     console.log('Hello DataService Provider');
@@ -19,7 +19,7 @@ export class DataService {
 
   loadPins(id){
     return new Promise(resolve => {
-      let url = 'http://localhost:3000/pins';
+      let url = this.prod + '/pins';
       if (id) {
         url += '/' + id;
       }
@@ -33,7 +33,7 @@ export class DataService {
 
   loadSupplies(id){
     return new Promise(resolve => {
-      let url = 'http://localhost:3000/supplies';
+      let url = this.prod + '/supplies';
       if (id) {
         url += '/' + id;
       }
@@ -47,7 +47,7 @@ export class DataService {
 
   loadSupplyPins(sid){
     return new Promise(resolve => {
-      let url = 'http://localhost:3000/supplies/' + sid + '/pins';
+      let url = this.prod + '/supplies/' + sid + '/pins';
       console.log(url);
       this.http.get(url)
         .map(res => res.json())
@@ -59,7 +59,7 @@ export class DataService {
 
   loadCenters(id){
     return new Promise(resolve => {
-      let url = 'http://localhost:3000/evac_centers';
+      let url = this.prod + '/evac_centers';
       if (id) {
         url += '/' + id;
       }
@@ -73,7 +73,7 @@ export class DataService {
 
   loadRankedCenters(lat, lon){
     return new Promise(resolve => {
-      let url = 'http://localhost:3000/evac_centers/rank/' + lat + '/' + lon;
+      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon;
       this.http.get(url)
         .map(res => res.json())
         .subscribe(data => {
