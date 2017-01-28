@@ -7,4 +7,23 @@ page-splash {
 	.padtop {
 		padding-top: 10% !important;
 	}
+	.splash {
+		background-image: url("/assets/img/splashbg.png") !important;
+	}
+	.splashbtn {
+		min-width: 100%;
+		min-height: 42vw;
+		max-width: 100%;
+		max-height: 42vw;
+		padding: 0px;
+	}
+	.splashbtntxt {
+		min-width: 100%;
+	}
+	.colbtns {
+		align-items: center !important;
+		align-content: center !important;
+		align-self: center !important;
+		padding: 0px 5px;
+	}
 }

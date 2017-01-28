@@ -13,7 +13,7 @@
 </ion-header> -->
 
 
-<ion-content>
+<ion-content class="splash">
 <div padding class="padtop">
 </div>
 <div>
@@ -24,35 +24,27 @@
 <div>
 </div>
 <ion-grid>
-  <ion-row>
-    <ion-col>
-      <button ion-button full color="primary" (click)="goTo()">
-        <ion-icon name="star"></ion-icon>
-        <ion-label>Use It!</ion-label>
+  <ion-row class="colbtns">
+    <ion-col class="colbtns">
+      <button ion-button class="splashbtn" color="primary" (click)="goTo()">
+        <img src="/assets/img/useapp.png">
+      </button>
+    </ion-col>
+    <ion-col class="colbtns">
+      <button ion-button class="splashbtn" color="primary" (click)="goToInfo()">
+        <img src="assets/img/aboutus.png">
       </button>
     </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-col>
-      <button ion-button full color="primary" (click)="goToInfo()">
-        <ion-icon name="contacts"></ion-icon>
-        <ion-label>About Us</ion-label>
+  <ion-row class="colbtns">
+    <ion-col class="colbtns">
+      <button ion-button class="splashbtn" color="primary" (click)="goToText()">
+        <img src="assets/img/sendsms.png">
       </button>
     </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <button ion-button full color="primary" (click)="goToText()">
-        <ion-icon name="md-paper-plane"></ion-icon>
-        <ion-label>Send SMS</ion-label>
-      </button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <button ion-button full color="primary" (click)="goToMsgr()">
-        <ion-icon name="logo-facebook"></ion-icon>
-        <ion-label>Send FB Message</ion-label>
+    <ion-col class="colbtns">
+      <button ion-button class="splashbtn" color="primary" (click)="goToMsgr()">
+        <img src="assets/img/sendfb.png">
       </button>
     </ion-col>
   </ion-row>
