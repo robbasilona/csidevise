@@ -11,8 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
   root: string = 'http://localhost:3000';
-  /* prod: string = 'https://mysterious-fjord-54773.herokuapp.com'; */
-  prod: string = 'http://localhost:3000';
+  prod: string = 'https://mysterious-fjord-54773.herokuapp.com';
 
   constructor(public http: Http) {
     console.log('Hello DataService Provider');
