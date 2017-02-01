@@ -10,8 +10,9 @@ class EvacCenter < ApplicationRecord
 		dist + per * dist
   end
 
-  def self.rank(src)
-		self.all.sort { |x, y| x.score(src) <=> y.score(src) }
+  def self.rank(src, limit)
+		temp = self.all.sort { |x, y| x.score(src) <=> y.score(src) }
+		temp[0..limit.to_i-1]
   end
 
 	def self.get_result(msg)

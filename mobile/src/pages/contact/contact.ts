@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, Platform } from 'ionic-angular';
 
+import { Geolocation } from 'ionic-native';
+
 import { DataService } from '../../providers/data-service';
 
 @Component({
@@ -16,6 +18,12 @@ export class ContactPage {
   width: number;
   height: number;
 
+
+  geocoder: any;
+  loc: string;
+  lat: number;
+  lon: number;
+
   constructor(
     public navCtrl: NavController,
     public ds_api: DataService,
@@ -26,20 +34,28 @@ export class ContactPage {
       this.width = platform.width();
       this.height = platform.height();
     });
-    this.trend = 'occupancy';
-    this.trendChange();
+  }
+
+  ionViewDidLoad(){
+    Geolocation.getCurrentPosition().then((position) => {
+      this.lat = position.coords.latitude;
+      this.lon = position.coords.longitude;
+      console.log('Detected location at ' + this.lat + ',' + this.lon);
+      this.trend = 'occupancy';
+      this.trendChange();
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   trendChange(){
     if (this.trend === 'occupancy') {
-      this.api.loadCenters(0).then(data => {
+      this.api.loadRankedCenters(this.lat, this.lon, 5).then(data => {
         let names = [];
-        let cvalues = [];
-        let tvalues = [];
+        let perc = [];
         for (let i in data) {
           names[i] = data[i].name;
-          cvalues[i] = data[i].quantity;
-          tvalues[i] = data[i].capacity;
+          perc[i] = data[i].quantity / data[i].capacity * 100;
         }
         this.options = {
           chart: {
@@ -55,24 +71,26 @@ export class ContactPage {
             crosshair: true
           },
           series: [{
-            name: 'Total capacity',
-            color: 'rgba(248,161,63,0.6)',
-            data: tvalues,
-            pointPlacement: 0.15
-          }, {
-            name: 'Current evacuees',
-            color: 'rgba(186,60,61,1)',
-            data: cvalues,
-            pointPlacement: -0.15
+            name: 'Percentage Occupancy',
+            color: 'rgb(140, 36, 29)',
+            data: perc
           }],
           yAxis: {
-            title: { text: '' }
+            title: {
+              text: ''
+            },
+            labels: {
+              formatter: function () {
+                return this.value + '%';
+              }
+            },
+            max: 100
           }
         };
       });
     }
     else if(this.trend == 'evacuation'){
-      this.api.loadCenters(0).then(data => {
+      this.api.loadRankedCenters(this.lat, this.lon, 3).then(data => {
         let names = [];
         let cvalues = [];
         let tvalues = [];
@@ -100,13 +118,12 @@ export class ContactPage {
           yAxis: {
             title: {
               text: ''
+            },
+            labels: {
+              formatter: function () {
+                return this.value + '%';
+              }
             }
-            // ,
-            // labels: {
-            //   formatter: function () {
-            //     return this.value + '°';
-            //   }
-            // }
           },
           plotOptions: {
             spline: {
@@ -120,16 +137,22 @@ export class ContactPage {
           series: [
           {
             name: names[0],
-            // marker: {
-            //   symbol: 'square'
-            // },
+            marker: {
+              symbol: 'circle'
+            },
             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
           }, {
             name: names[1],
-            // marker: {
-            //   symbol: 'diamond'
-            // },
+            marker: {
+              symbol: 'circle'
+            },
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+          },{
+            name: names[2],
+            marker: {
+              symbol: 'circle'
+            },
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 2.8]
           }]
         }
       });

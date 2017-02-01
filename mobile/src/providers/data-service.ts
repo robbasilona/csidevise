@@ -71,9 +71,10 @@ export class DataService {
     });
   }
 
-  loadRankedCenters(lat, lon){
+  loadRankedCenters(lat, lon, limit){
     return new Promise(resolve => {
-      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon;
+      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon + '/' + limit;
+      console.log(url);
       this.http.get(url)
         .map(res => res.json())
         .subscribe(data => {
