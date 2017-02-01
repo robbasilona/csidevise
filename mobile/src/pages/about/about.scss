@@ -38,4 +38,9 @@ page-about {
   ion-item {
     padding: 2px 10px !important;
   }
+  ion-label.rightpanel {
+    overflow: visible !important;
+    margin-right: 12px !important;
+    text-overflow: none !important;
+  }
 }
