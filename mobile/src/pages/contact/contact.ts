@@ -49,10 +49,10 @@ export class ContactPage {
 
   trendChange(){
     if (this.trend === 'occupancy') {
-      this.api.loadRankedCenters(this.lat, this.lon, 5).then(data => {
+      this.api.loadRankedCenters(this.lat, this.lon).then(data => {
         let names = [];
         let perc = [];
-        for (let i in data) {
+        for (let i=0; i<5; i++) {
           names[i] = data[i].name;
           perc[i] = data[i].quantity / data[i].capacity * 100;
         }
@@ -89,11 +89,11 @@ export class ContactPage {
       });
     }
     else if(this.trend == 'evacuation'){
-      this.api.loadRankedCenters(this.lat, this.lon, 3).then(data => {
+      this.api.loadRankedCenters(this.lat, this.lon).then(data => {
         let names = [];
         let cvalues = [];
         let tvalues = [];
-        for (let i in data) {
+        for (let i=0; i<3; i++) {
           names[i] = data[i].name;
           cvalues[i] = data[i].quantity;
           tvalues[i] = data[i].capacity;

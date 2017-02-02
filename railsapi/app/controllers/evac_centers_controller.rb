@@ -12,8 +12,8 @@ class EvacCentersController < ApplicationController
 
   def rank
     src = EvacCenter.new(name: 'User', latitude: params[:lat], longitude: params[:lon])
-    @evac_centers = EvacCenter.rank(src, params[:limit])
-    render json: @evac_centers
+    @rank = EvacCenter.rank(src)
+    render json: @rank
   end
 
   def near

@@ -34,7 +34,7 @@ export class AboutPage {
       this.lat = position.coords.latitude;
       this.lon = position.coords.longitude;
       console.log('Detected location at ' + this.lat + ',' + this.lon);
-      this.api.loadRankedCenters(this.lat, this.lon, 10).then(data => {
+      this.api.loadRankedCenters(this.lat, this.lon).then(data => {
         this.pins = data;
         this.loadMap();
       });

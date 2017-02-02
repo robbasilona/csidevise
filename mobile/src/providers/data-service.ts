@@ -10,11 +10,46 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class DataService {
-  prod: string = 'http://localhost:3000';
-  // prod: string = 'https://fast-cove-98117.herokuapp.com/';
+  // prod: string = 'http://localhost:3000';
+  prod: string = 'https://fast-cove-98117.herokuapp.com/';
+
+  pinData: any;
+  evacData: any;
 
   constructor(public http: Http) {
     console.log('Hello DataService Provider');
+  }
+
+  loadSupplyPins(sid){
+    if(this.pinData) {
+      return Promise.resolve(this.pinData);
+    }
+    return new Promise(resolve => {
+      let url = this.prod + '/supplies/' + sid + '/pins';
+      console.log(url);
+      this.http.get(url)
+        .map(res => res.json())
+        .subscribe(data => {
+          this.pinData = data;
+          resolve(data);
+        });
+    });
+  }
+
+  loadRankedCenters(lat, lon){
+    if(this.evacData) {
+      return Promise.resolve(this.evacData);
+    }
+    return new Promise(resolve => {
+      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon;
+      console.log(url);
+      this.http.get(url)
+        .map(res => res.json())
+        .subscribe(data => {
+          this.evacData = data;
+          resolve(data);
+        });
+    });
   }
 
   loadPins(id){
@@ -45,36 +80,12 @@ export class DataService {
     });
   }
 
-  loadSupplyPins(sid){
-    return new Promise(resolve => {
-      let url = this.prod + '/supplies/' + sid + '/pins';
-      console.log(url);
-      this.http.get(url)
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        });
-    });
-  }
-
   loadCenters(id){
     return new Promise(resolve => {
       let url = this.prod + '/evac_centers';
       if (id) {
         url += '/' + id;
       }
-      this.http.get(url)
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        });
-    });
-  }
-
-  loadRankedCenters(lat, lon, limit){
-    return new Promise(resolve => {
-      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon + '/' + limit;
-      console.log(url);
       this.http.get(url)
         .map(res => res.json())
         .subscribe(data => {

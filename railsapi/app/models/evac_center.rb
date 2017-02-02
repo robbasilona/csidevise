@@ -3,8 +3,6 @@ include Geokit::Geocoders
 class EvacCenter < ApplicationRecord
 	acts_as_mappable :default_units => :kms, :default_formula => :sphere, :lat_column_name => :latitude, :lng_column_name => :longitude
 
-	@@ranking = []
-
   def score(src)
 		self.dist = self.distance_to(src, :units => :kms).round(2)
 		self.save
@@ -12,16 +10,9 @@ class EvacCenter < ApplicationRecord
 		dist + per * dist
   end
 
-  def self.rank2(src, limit)
-		if @@ranking.length == 0
-			@@ranking = self.all.sort { |x, y| x.score(src) <=> y.score(src) }
-		end
-		@@ranking[0..limit.to_i-1]
-  end
-
-	def self.rank(src, limit)
+	def self.rank(src)
 		temp = self.all.sort { |x, y| x.score(src) <=> y.score(src) }
-		temp[0..limit.to_i-1]
+		temp[0..9]
 	end
 
 	def self.get_result(msg)
