@@ -51,7 +51,12 @@ Might need to execute *npm install* to install other packages.
 ### Some API credentials
 Rails Deployed App
 ```
-https://mysterious-fjord-54773.herokuapp.com/
+https://fast-cove-98117.herokuapp.com/
+```
+
+Node Messenger App
+```
+https://pacific-everglades-10344.herokuapp.com/
 ```
 
 Google Maps API keys
