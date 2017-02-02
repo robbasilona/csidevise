@@ -3,6 +3,8 @@ include Geokit::Geocoders
 class EvacCenter < ApplicationRecord
 	acts_as_mappable :default_units => :kms, :default_formula => :sphere, :lat_column_name => :latitude, :lng_column_name => :longitude
 
+	@@ranking = []
+
   def score(src)
 		self.dist = self.distance_to(src, :units => :kms).round(2)
 		self.save
@@ -10,10 +12,17 @@ class EvacCenter < ApplicationRecord
 		dist + per * dist
   end
 
-  def self.rank(src, limit)
+  def self.rank2(src, limit)
+		if @@ranking.length == 0
+			@@ranking = self.all.sort { |x, y| x.score(src) <=> y.score(src) }
+		end
+		@@ranking[0..limit.to_i-1]
+  end
+
+	def self.rank(src, limit)
 		temp = self.all.sort { |x, y| x.score(src) <=> y.score(src) }
 		temp[0..limit.to_i-1]
-  end
+	end
 
 	def self.get_result(msg)
 		loc = GoogleGeocoder.geocode(msg)
@@ -30,7 +39,3 @@ class EvacCenter < ApplicationRecord
 		response += 'Keep safe! RefuGeo'
 	end
 end
-# @src = EvacCenter.new(latitude: 14.6476383, longitude: 121.0646582, name: 'User')
-# EvacCenter.first.score(@src)
-# EvacCenter.rank(@src)
-# EvacCenter.get_result('Krus Na Ligas')

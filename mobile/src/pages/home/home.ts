@@ -6,6 +6,8 @@ import { Geolocation } from 'ionic-native';
 
 import { DataService } from '../../providers/data-service';
 
+import { SplashPage } from '../../pages/splash/splash';
+
 declare var google;
 
 @Component({
@@ -45,6 +47,10 @@ export class HomePage {
       this.supplies[0].enabled = true;
       this.displayPins();
     });
+  }
+
+  back(){
+    this.navCtrl.push(SplashPage);
   }
 
   displayPins(){

@@ -18,7 +18,6 @@ export class ContactPage {
   width: number;
   height: number;
 
-
   geocoder: any;
   loc: string;
   lat: number;
