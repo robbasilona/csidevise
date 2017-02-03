@@ -8,6 +8,16 @@ import { DataService } from '../../providers/data-service';
 
 import { SplashPage } from '../../pages/splash/splash';
 
+import {
+ GoogleMap,
+ GoogleMapsEvent,
+ GoogleMapsLatLng,
+ CameraPosition,
+ GoogleMapsMarkerOptions,
+ GoogleMapsMarker
+} from 'ionic-native';
+
+
 declare var google;
 
 @Component({
@@ -39,6 +49,13 @@ export class HomePage {
     this.goods = true;
     this.batteries = false;
     this.api = ds_api;
+  }
+
+  back(){
+    this.navCtrl.push(SplashPage);
+  }
+
+  ionViewDidLoad(){
     this.api.loadSupplies(0).then(data => {
       this.supplies = data;
       for (let supply of this.supplies) {
@@ -46,11 +63,38 @@ export class HomePage {
       }
       this.supplies[0].enabled = true;
       this.displayPins();
+      // console.log('Already got the data');
+      // let element: HTMLElement = document.getElementById('map');
+      //
+      // let map = new GoogleMap(element);
+      //
+      // // listen to MAP_READY event
+      // map.one(GoogleMapsEvent.MAP_READY).then(() => console.log('Map is ready!'));
+      //
+      // // create LatLng object
+      // let ionic: GoogleMapsLatLng = new GoogleMapsLatLng(43.0741904,-89.3809802);
+      //
+      // // create CameraPosition
+      // let position: CameraPosition = {
+      //  target: ionic,
+      //  zoom: 18,
+      //  tilt: 30
+      // };
+      //
+      // // move the map's camera to position
+      // // map.moveCamera(position);
+      //
+      // // create new marker
+      // let markerOptions: GoogleMapsMarkerOptions = {
+      //  position: ionic,
+      //  title: 'Ionic'
+      // };
+      //
+      // map.addMarker(markerOptions)
+      //  .then((marker: GoogleMapsMarker) => {
+      //     marker.showInfoWindow();
+      //   });
     });
-  }
-
-  back(){
-    this.navCtrl.push(SplashPage);
   }
 
   displayPins(){

@@ -6,6 +6,8 @@ import { Geolocation } from 'ionic-native';
 
 import { DataService } from '../../providers/data-service';
 
+import { SplashPage } from '../../pages/splash/splash';
+
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html',
@@ -46,6 +48,11 @@ export class ContactPage {
       console.log(err);
     });
   }
+
+  back(){
+    this.navCtrl.push(SplashPage);
+  }
+
 
   trendChange(){
     if (this.trend === 'occupancy') {

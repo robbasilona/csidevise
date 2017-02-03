@@ -6,6 +6,8 @@ import { Geolocation } from 'ionic-native';
 
 import { DataService } from '../../providers/data-service';
 
+import { SplashPage } from '../../pages/splash/splash';
+
 declare var google;
 
 @Component({
@@ -28,6 +30,11 @@ export class AboutPage {
   constructor(public navCtrl: NavController, public ds_api: DataService) {
     this.api = ds_api;
   }
+
+  back(){
+    this.navCtrl.push(SplashPage);
+  }
+
 
   ionViewDidLoad(){
     Geolocation.getCurrentPosition().then((position) => {
