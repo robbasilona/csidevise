@@ -13,6 +13,9 @@ export class DataService {
   prod: string = 'http://localhost:3000';
   // prod: string = 'https://fast-cove-98117.herokuapp.com/';
 
+  resData: any;
+  evacData: any;
+
   constructor(public http: Http) {
     console.log('Hello DataService Provider');
   }
@@ -46,15 +49,20 @@ export class DataService {
   }
 
   loadSupplyPins(sid){
-    return new Promise(resolve => {
-      let url = this.prod + '/supplies/' + sid + '/pins';
-      console.log(url);
-      this.http.get(url)
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        });
-    });
+    if (this.resData) {
+      return Promise.resolve(this.resData);
+    } else {
+      return new Promise(resolve => {
+        let url = this.prod + '/supplies/' + sid + '/pins';
+        console.log(url);
+        this.http.get(url)
+          .map(res => res.json())
+          .subscribe(data => {
+            this.resData = data;
+            resolve(data);
+          });
+      });
+    }
   }
 
   loadCenters(id){
@@ -72,15 +80,20 @@ export class DataService {
   }
 
   loadRankedCenters(lat, lon, limit){
-    return new Promise(resolve => {
-      let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon + '/' + limit;
-      console.log(url);
-      this.http.get(url)
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        });
-    });
+    if (this.evacData) {
+      return Promise.resolve(this.evacData);
+    } else {
+      return new Promise(resolve => {
+        let url = this.prod + '/evac_centers/rank/' + lat + '/' + lon + '/' + limit;
+        console.log(url);
+        this.http.get(url)
+          .map(res => res.json())
+          .subscribe(data => {
+            this.evacData = data;
+            resolve(data);
+          });
+      });
+    }
   }
 
 }

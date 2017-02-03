@@ -6,6 +6,8 @@ import { Geolocation } from 'ionic-native';
 
 import { DataService } from '../../providers/data-service';
 
+import { SplashPage } from '../../pages/splash/splash';
+
 declare var google;
 
 @Component({
@@ -41,6 +43,10 @@ export class AboutPage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  back(){
+    this.navCtrl.push(SplashPage);
   }
 
   loadMap(){
